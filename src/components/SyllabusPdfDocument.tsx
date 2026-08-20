@@ -216,7 +216,7 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
             const topicFontSize = totalRows <= 3 ? 17 : totalRows <= 5 ? 15 : 13.5;
             const rowMarginBottom = config.pdfRowGap !== undefined
               ? config.pdfRowGap
-              : totalRows <= 3 ? 32 : totalRows <= 5 ? 24 : 16;
+              : 60;
             const subjectWidth = config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 195;
 
             const activeSubjectColor = config.pdfSubjectColor || config.tableHeaderTextColor || subjectColor || '#c00000';

@@ -17,6 +17,7 @@ export const DEFAULT_CLEAN_POSTER: PosterConfig = {
   tableCellFontSize: 17,
   pdfSubjectFontSize: 22,
   pdfTopicFontSize: 17,
+  pdfRowGap: 60,
   pdfFooterLink: 'https://smart.link/7wwosivoicgd4',
   pdfFooterText: 'PW Web/App -',
   tableData: [
@@ -45,6 +46,7 @@ export const INITIAL_SYLLABUS_POSTER: PosterConfig = {
   pdfHeaderLine2: '',
   pdfSubjectFontSize: 22,
   pdfTopicFontSize: 17,
+  pdfRowGap: 60,
   pdfBannerColor: '#4285f4',
   pdfSubjectColor: '#c00000',
   pdfTopicColor: '#00a651',

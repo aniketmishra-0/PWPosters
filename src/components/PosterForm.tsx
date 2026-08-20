@@ -467,8 +467,8 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                       onChange({
                         pdfBannerY: 110,
                         pdfContentY: 245,
-                        pdfSubjectWidth: 250,
-                        pdfRowGap: 34,
+                        pdfSubjectWidth: 220,
+                        pdfRowGap: 60,
                         pdfSubjectColor: '#c00000',
                         pdfTopicColor: '#0f172a'
                       });
@@ -514,13 +514,13 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                   <div>
                     <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
                       <span>Subject Width</span>
-                      <span className="font-mono text-purple-700 font-bold">{config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 250}px</span>
+                      <span className="font-mono text-purple-700 font-bold">{config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 220}px</span>
                     </div>
                     <input
                       type="range"
-                      min={180}
+                      min={100}
                       max={340}
-                      value={config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 250}
+                      value={config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 220}
                       onChange={(e) => onChange({ pdfSubjectWidth: parseInt(e.target.value, 10) })}
                       className="w-full accent-purple-600 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
                     />
@@ -528,13 +528,13 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                   <div>
                     <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
                       <span>Row Gap</span>
-                      <span className="font-mono text-purple-700 font-bold">{config.pdfRowGap !== undefined ? config.pdfRowGap : 34}px</span>
+                      <span className="font-mono text-purple-700 font-bold">{config.pdfRowGap !== undefined ? config.pdfRowGap : 60}px</span>
                     </div>
                     <input
                       type="range"
                       min={12}
-                      max={60}
-                      value={config.pdfRowGap !== undefined ? config.pdfRowGap : 34}
+                      max={100}
+                      value={config.pdfRowGap !== undefined ? config.pdfRowGap : 60}
                       onChange={(e) => onChange({ pdfRowGap: parseInt(e.target.value, 10) })}
                       className="w-full accent-purple-600 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
                     />
@@ -908,7 +908,7 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                         <span className="text-xs font-bold text-slate-700">Subject Distance & Spacing</span>
                         <button
                           type="button"
-                          onClick={() => onChange({ pdfSubjectWidth: 180, pdfRowGap: 32, pdfContentY: 245 })}
+                          onClick={() => onChange({ pdfSubjectWidth: 220, pdfRowGap: 60, pdfContentY: 245 })}
                           className="text-[10px] font-bold text-purple-700 hover:text-purple-900 bg-white px-2 py-0.5 rounded-md border border-purple-200 shadow-2xs"
                         >
                           ★ Reset Spacing
@@ -919,13 +919,13 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                         <div>
                           <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
                             <span>Subject Width</span>
-                            <span className="font-mono text-purple-700 font-bold">{config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 180}px</span>
+                            <span className="font-mono text-purple-700 font-bold">{config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 220}px</span>
                           </div>
                           <input
                             type="range"
                             min={100}
                             max={340}
-                            value={config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 180}
+                            value={config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 220}
                             onChange={(e) => onChange({ pdfSubjectWidth: parseInt(e.target.value, 10) })}
                             className="w-full accent-purple-600 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
                           />
@@ -933,13 +933,13 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                         <div>
                           <div className="flex justify-between text-[11px] font-semibold text-slate-600 mb-1">
                             <span>Row Gap</span>
-                            <span className="font-mono text-purple-700 font-bold">{config.pdfRowGap !== undefined ? config.pdfRowGap : 32}px</span>
+                            <span className="font-mono text-purple-700 font-bold">{config.pdfRowGap !== undefined ? config.pdfRowGap : 60}px</span>
                           </div>
                           <input
                             type="range"
                             min={12}
-                            max={60}
-                            value={config.pdfRowGap !== undefined ? config.pdfRowGap : 32}
+                            max={100}
+                            value={config.pdfRowGap !== undefined ? config.pdfRowGap : 60}
                             onChange={(e) => onChange({ pdfRowGap: parseInt(e.target.value, 10) })}
                             className="w-full accent-purple-600 h-1.5 bg-slate-200 rounded-lg cursor-pointer"
                           />
