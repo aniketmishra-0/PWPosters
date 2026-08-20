@@ -217,6 +217,7 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
             const rowMarginBottom = config.pdfRowGap !== undefined
               ? config.pdfRowGap
               : totalRows <= 3 ? 32 : totalRows <= 5 ? 24 : 16;
+            const subjectWidth = config.pdfSubjectWidth !== undefined ? config.pdfSubjectWidth : 195;
 
             const activeSubjectColor = config.pdfSubjectColor || config.tableHeaderTextColor || subjectColor || '#c00000';
 
@@ -239,14 +240,17 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
             return (
               <div
                 key={`row-${idx}`}
-                className="flex flex-row items-baseline gap-x-2 w-full"
+                className="flex flex-row items-baseline w-full"
                 style={{ marginBottom: `${rowMarginBottom}px` }}
               >
-                {/* Subject Header with attached Colon (Wraps safely if long URL is pasted) */}
-                <div className="flex items-baseline gap-1 min-w-0 max-w-[48%] shrink-0">
+                {/* Subject Header Column with Right-Aligned Colon for Perfect Vertical Grid Alignment */}
+                <div
+                  className="flex items-baseline justify-between shrink-0 mr-4"
+                  style={{ width: `${subjectWidth}px` }}
+                >
                   <span
                     key={`subject-${idx}`}
-                    contentEditable={!!onChange}
+                    contentEditable={!isExporting && !!onChange}
                     suppressContentEditableWarning
                     data-placeholder="SUBJECT"
                     onClick={(e) => {
@@ -272,7 +276,7 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
                       fontFamily: finalSubjectFontFamily,
                       fontWeight: finalSubjectFontWeight,
                       lineHeight: '1.25',
-                      wordBreak: 'break-all',
+                      wordBreak: 'break-word',
                       overflowWrap: 'anywhere'
                     }}
                     className={`pw-cell-text tracking-wide outline-none rounded px-1 -ml-1 cursor-text uppercase font-black empty:before:content-[attr(data-placeholder)] empty:before:opacity-30 empty:before:italic empty:before:font-normal transition-all ${
@@ -290,18 +294,18 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
                         fontWeight: '800',
                         lineHeight: '1.25'
                       }}
-                      className="select-none font-bold mr-1 shrink-0"
+                      className="select-none font-bold ml-1 shrink-0"
                     >
                       :
                     </span>
                   )}
                 </div>
 
-                {/* Topic / Link Column (Full available width, perfect baseline alignment, supports Shift+Enter) */}
+                {/* Topic / Link Column (Starts at exact same horizontal position across all rows) */}
                 <div className="flex-1 min-w-0">
                   <span
                     key={`topic-${idx}`}
-                    contentEditable={!!onChange}
+                    contentEditable={!isExporting && !!onChange}
                     suppressContentEditableWarning
                     data-placeholder="Enter topics / syllabus link..."
                     onClick={(e) => {
