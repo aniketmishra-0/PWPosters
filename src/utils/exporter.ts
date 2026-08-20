@@ -38,6 +38,47 @@ async function getPosterCanvas(element: HTMLElement): Promise<HTMLCanvasElement>
     })
   );
 
+  // Strip all selection/focus/ring classes and inline styles from DOM elements before capture
+  const highlightedElements = Array.from(
+    element.querySelectorAll<HTMLElement>(
+      '.pw-cell-text, .pw-announcement-text, .pw-announcement-badge-text, .pw-announcement-tag, .pw-header-text, .pw-subheader-text, [class*="ring-"], [class*="bg-purple-50"]'
+    )
+  );
+
+  // Backup original classNames and inline styles
+  const backups = highlightedElements.map((el) => ({
+    el,
+    className: el.className,
+    boxShadow: el.style.boxShadow,
+    outline: el.style.outline,
+    backgroundColor: el.style.backgroundColor
+  }));
+
+  // Clean all rings, active backgrounds, and outlines
+  highlightedElements.forEach((el) => {
+    el.classList.remove(
+      'ring-2',
+      'ring-1',
+      'ring-[#8b3dff]',
+      'ring-purple-500',
+      'ring-purple-600',
+      'ring-[#ffd200]',
+      'bg-purple-50/80',
+      'bg-purple-50',
+      'shadow-xs',
+      'shadow-sm'
+    );
+    el.style.outline = 'none';
+    el.style.boxShadow = 'none';
+    if (
+      el.style.backgroundColor.includes('rgb(250 245 255') ||
+      el.style.backgroundColor.includes('rgba(250, 245, 255') ||
+      el.style.backgroundColor.includes('purple')
+    ) {
+      el.style.backgroundColor = 'transparent';
+    }
+  });
+
   // Set export attribute to strip all active rings and outlines
   element.setAttribute('data-exporting', 'true');
 
@@ -64,6 +105,13 @@ async function getPosterCanvas(element: HTMLElement): Promise<HTMLCanvasElement>
     return canvas;
   } finally {
     element.removeAttribute('data-exporting');
+    // Restore element styles/classes
+    backups.forEach(({ el, className, boxShadow, outline, backgroundColor }) => {
+      el.className = className;
+      el.style.boxShadow = boxShadow;
+      el.style.outline = outline;
+      el.style.backgroundColor = backgroundColor;
+    });
   }
 }
 
