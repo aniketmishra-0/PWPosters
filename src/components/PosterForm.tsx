@@ -85,24 +85,27 @@ export const PosterForm: React.FC<PosterFormProps> = ({
     if (type === config.type) return;
 
     if (type === 'timetable') {
+      const existingHasData = config.tableData && config.tableData.length >= 2 && config.tableData[0]?.length >= 2;
       onChange({
         type: 'timetable',
         batchName: config.batchName || '',
         title: config.title || '',
         startDate: config.startDate || '',
         endDate: config.endDate || '',
-        numRows: 7,
+        numRows: existingHasData ? config.numRows : 7,
         numCols: 2,
         theme: 'maroon-pw',
-        tableData: [
-          ['Days', ''],
-          ['Monday', ''],
-          ['Tuesday', ''],
-          ['Wednesday', ''],
-          ['Thursday', ''],
-          ['Friday', ''],
-          ['Saturday', '']
-        ]
+        tableData: existingHasData
+          ? config.tableData
+          : [
+              ['Days', ''],
+              ['Monday', ''],
+              ['Tuesday', ''],
+              ['Wednesday', ''],
+              ['Thursday', ''],
+              ['Friday', ''],
+              ['Saturday', '']
+            ]
       });
     } else if (type === 'announcement') {
       onChange({
@@ -114,27 +117,31 @@ export const PosterForm: React.FC<PosterFormProps> = ({
         numRows: 1,
         numCols: 1,
         theme: 'emerald-pw',
-        announcementBadge: config.announcementBadge ? config.announcementBadge.toUpperCase() : 'KEEP LEARNING !!',
-        announcementText: config.announcementText ? config.announcementText.toUpperCase() : 'LIVE CLASSES WILL RESUME TOMORROW AT 8:00 AM SHARP ON PW APP.',
+        announcementBadge: config.announcementBadge || 'Keep Learning !!',
+        announcementText: config.announcementText || 'LIVE CLASSES WILL RESUME TOMORROW AT 8:00 AM SHARP ON PW APP.',
         tableData: [['']]
       });
     } else {
+      // Syllabus - Preserve user's typed data or provide clean blank rows
+      const existingHasData = config.tableData && config.tableData.length >= 2 && config.tableData[0]?.length >= 2;
       onChange({
         type: 'syllabus',
         syllabusType: 'Long',
-        batchName: config.batchName || 'NEET 2026',
-        title: config.title || 'WEEKLY TEST 01 SYLLABUS',
-        startDate: config.startDate || '26/07/2026',
-        endDate: '',
-        numRows: 4,
+        batchName: config.batchName || '',
+        title: config.title || '',
+        startDate: config.startDate || '',
+        endDate: config.endDate || '',
+        numRows: existingHasData ? config.numRows : 4,
         numCols: 2,
         theme: 'purple-pw',
-        tableData: [
-          ['PHYSICS', 'Units and Measurements, Motion in a Straight Line'],
-          ['CHEMISTRY', 'Some Basic Concepts of Chemistry, Structure of Atom'],
-          ['BOTANY', 'The Living World, Biological Classification'],
-          ['ZOOLOGY', 'Animal Kingdom, Structural Organisation']
-        ]
+        tableData: existingHasData
+          ? config.tableData
+          : [
+              ['', ''],
+              ['', ''],
+              ['', ''],
+              ['', '']
+            ]
       });
     }
   };
