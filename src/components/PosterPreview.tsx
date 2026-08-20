@@ -534,7 +534,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
     <div className="flex flex-col h-full w-full overflow-hidden relative group bg-[#f3f4f6]">
       {/* CANVA DOCKED TYPOGRAPHY TOOLBAR */}
       <div 
-        className="absolute top-0 left-0 right-0 z-40 h-14 bg-white border-b border-slate-200 shadow-sm transition-all duration-300 translate-y-0 opacity-100"
+        className="sticky top-0 left-0 right-0 z-40 h-14 bg-white border-b border-slate-200 shadow-sm shrink-0"
       >
         <CanvaTextToolbar
           config={config}

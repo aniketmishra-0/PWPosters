@@ -894,30 +894,6 @@ export const PosterForm: React.FC<PosterFormProps> = ({
                     </button>
                   </div>
 
-                  {/* Quick Subject Chips for Syllabus */}
-                  {config.type === 'syllabus' && (
-                    <div className="flex flex-wrap items-center gap-1.5 bg-purple-50/50 p-2 rounded-xl border border-purple-100">
-                      <span className="text-[10px] font-extrabold text-purple-800 mr-1">Quick Subjects:</span>
-                      {['PHYSICS', 'CHEMISTRY', 'BOTANY', 'ZOOLOGY', 'MATHS', 'BIOLOGY', 'POLITY'].map((subj) => (
-                        <button
-                          key={subj}
-                          type="button"
-                          onClick={() => {
-                            const updated = (config.tableData || []).map((r) => [...r]);
-                            const emptyIdx = updated.findIndex((r) => !r[0] || r[0].trim() === '');
-                            const targetIdx = emptyIdx !== -1 ? emptyIdx : 0;
-                            while (updated.length <= targetIdx) updated.push(['', '']);
-                            updated[targetIdx][0] = subj;
-                            onChange({ tableData: updated });
-                          }}
-                          className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-white text-purple-700 hover:bg-purple-600 hover:text-white border border-purple-200 transition-all shadow-2xs"
-                        >
-                          +{subj}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
                   {/* Real-Time Spacing & Distance Sliders */}
                   {config.type === 'syllabus' && (
                     <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2.5">

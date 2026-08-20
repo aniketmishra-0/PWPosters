@@ -339,7 +339,7 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-slate-100 text-slate-800 flex flex-col font-sans selection:bg-purple-600 selection:text-white">
+    <div className="fixed inset-0 h-[100dvh] w-screen overflow-hidden bg-slate-100 text-slate-800 flex flex-col font-sans selection:bg-purple-600 selection:text-white">
       {/* Toast Notification */}
       {toastMsg && (
         <div className="fixed bottom-5 right-5 z-50 animate-in slide-in-from-bottom-5 duration-200" role="status" aria-live="polite">
@@ -394,7 +394,7 @@ export default function App() {
       />
 
       {/* Main Studio Body Grid - Canva style Dynamic Full Canvas Toggle */}
-      <main className="flex-1 w-full mx-auto p-0 flex h-[calc(100vh-60px)] overflow-hidden relative">
+      <main className="flex-1 w-full mx-auto p-0 flex h-[calc(100dvh-60px)] overflow-hidden relative pb-[62px] md:pb-0">
         
         {/* Far-Left Nav (Canva Structure, Original Colors) */}
         <div className="w-[72px] bg-white flex-shrink-0 flex-col items-center py-4 gap-2 z-40 hidden md:flex border-r border-slate-200 shadow-sm">
@@ -457,8 +457,8 @@ export default function App() {
         </button>
 
         {/* Right Column: Live Poster / PDF Document Preview (Expands to Full Width when Sidebar is Collapsed) */}
-        <div className="flex-1 overflow-y-auto bg-[#f3f4f6] relative flex flex-col">
-          <div className="w-full min-h-full p-4 lg:px-8 lg:pt-4 lg:pb-32 flex flex-col items-center justify-start">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden bg-[#f3f4f6] relative flex flex-col no-scrollbar">
+          <div className="w-full min-h-full p-2 sm:p-4 lg:px-8 lg:pt-4 lg:pb-32 pb-24 flex flex-col items-center justify-start">
             <div className="w-full max-w-[1440px] mx-auto mt-1 mb-auto relative">
               <PosterPreview
                 config={config}
@@ -524,7 +524,7 @@ export default function App() {
       </main>
 
       {/* Floating Bottom Quick Navigation Bar for Mobile Phones */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] h-[62px] px-3">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] h-[62px] pb-[env(safe-area-inset-bottom,0px)] px-3">
         <div className="flex items-center justify-between h-full gap-2">
           <button
             type="button"
