@@ -11,6 +11,7 @@ interface SyllabusPdfDocumentProps {
   selectedCell?: { rIdx: number; cIdx: number } | null;
   onSelectCell?: (cell: { rIdx: number; cIdx: number } | null) => void;
   onSelectActiveElement?: (elem: 'batchName' | 'title' | 'date' | 'tableHeader' | 'tableCell' | 'all') => void;
+  isExporting?: boolean;
 }
 
 export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
@@ -20,7 +21,8 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
   scale = 1,
   selectedCell,
   onSelectCell,
-  onSelectActiveElement
+  onSelectActiveElement,
+  isExporting = false
 }) => {
   // Extract syllabus rows from config.tableData
   const getSyllabusRows = () => {
@@ -274,7 +276,7 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
                       overflowWrap: 'anywhere'
                     }}
                     className={`pw-cell-text tracking-wide outline-none rounded px-1 -ml-1 cursor-text uppercase font-black empty:before:content-[attr(data-placeholder)] empty:before:opacity-30 empty:before:italic empty:before:font-normal transition-all ${
-                      isSubjectSelected ? 'ring-2 ring-purple-600 bg-purple-50/60' : 'focus:ring-1 focus:ring-rose-400'
+                      !isExporting && isSubjectSelected ? 'ring-2 ring-purple-600 bg-purple-50/60' : !isExporting ? 'focus:ring-1 focus:ring-rose-400' : ''
                     }`}
                     title="Click to select & edit subject name"
                   >
@@ -329,7 +331,7 @@ export const SyllabusPdfDocument: React.FC<SyllabusPdfDocumentProps> = ({
                       wordBreak: 'break-all'
                     }}
                     className={`pw-cell-text block w-full outline-none rounded px-1 -ml-1 cursor-text empty:before:content-[attr(data-placeholder)] empty:before:opacity-30 empty:before:italic empty:before:font-normal transition-all ${
-                      isTopicSelected ? 'ring-2 ring-purple-600 bg-purple-50/60' : 'focus:ring-1 focus:ring-blue-400'
+                      !isExporting && isTopicSelected ? 'ring-2 ring-purple-600 bg-purple-50/60' : !isExporting ? 'focus:ring-1 focus:ring-blue-400' : ''
                     }`}
                     title="Click to select & edit topic details"
                   >

@@ -258,6 +258,9 @@ export default function App() {
     showToast('Rendering high-res PNG image...', 'info');
 
     try {
+      // Allow React to re-render with isExporting=true to completely strip all rings & selection styles
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       const filename = (config.batchName || 'pw_poster')
         .toLowerCase()
         .replace(/[^\wऀ-ॿঀ-৿]/g, '_')
@@ -280,6 +283,9 @@ export default function App() {
     showToast('Generating PDF document...', 'info');
 
     try {
+      // Allow React to re-render with isExporting=true to completely strip all rings & selection styles
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       const filename = (config.batchName || 'pw_poster')
         .toLowerCase()
         .replace(/[^\wऀ-ॿঀ-৿]/g, '_')
@@ -302,6 +308,9 @@ export default function App() {
     showToast('Exporting in Official PW Syllabus PDF Template...', 'info');
 
     try {
+      // Allow React to re-render with isExporting=true to completely strip all rings & selection styles
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       const filename = (config.batchName || 'pw_syllabus_doc')
         .toLowerCase()
         .replace(/[^\wऀ-ॿঀ-৿]/g, '_')
@@ -473,6 +482,7 @@ export default function App() {
                 onExportSyllabusPdf={handleExportSyllabusPdf}
                 previewMode={previewMode}
                 onPreviewModeChange={setPreviewMode}
+                isExporting={isExporting}
               />
             </div>
           </div>

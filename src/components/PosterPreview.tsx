@@ -33,6 +33,7 @@ interface PosterPreviewProps {
   onExportSyllabusPdf?: () => void;
   previewMode?: 'poster' | 'pdf';
   onPreviewModeChange?: (mode: 'poster' | 'pdf') => void;
+  isExporting?: boolean;
 }
 
 const Megaphone3D: React.FC<{ className?: string }> = ({ className }) => (
@@ -116,7 +117,8 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
   onExportPng,
   onExportSyllabusPdf,
   previewMode: controlledPreviewMode,
-  onPreviewModeChange
+  onPreviewModeChange,
+  isExporting = false
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [internalPreviewMode, setInternalPreviewMode] = useState<'poster' | 'pdf'>('poster');
@@ -598,6 +600,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                 selectedCell={selectedCell}
                 onSelectCell={setSelectedCell}
                 onSelectActiveElement={setActiveCanvasElement}
+                isExporting={isExporting}
               />
             </div>
           </div>
@@ -621,7 +624,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                   zIndex: -999
                 }}
               >
-                <SyllabusPdfDocument config={config} pdfDocRef={pdfDocRef} onChange={onChange} scale={1} />
+                <SyllabusPdfDocument config={config} pdfDocRef={pdfDocRef} onChange={onChange} scale={1} isExporting={isExporting} />
               </div>
             )}
 
@@ -708,7 +711,9 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                             if (onChange) onChange({ batchName: e.currentTarget.innerText.trim().toUpperCase() });
                             setEditingElement(null);
                           }}
-                          className="pw-announcement-tag inline-block bg-white/20 backdrop-blur-md text-yellow-300 border border-yellow-300/50 text-[11px] font-black uppercase tracking-wider px-3 py-0.5 rounded-md outline-none focus:ring-2 focus:ring-yellow-400 cursor-text shadow-sm hover:ring-1 hover:ring-yellow-300 select-text"
+                          className={`pw-announcement-tag inline-block bg-white/20 backdrop-blur-md text-yellow-300 border border-yellow-300/50 text-[11px] font-black uppercase tracking-wider px-3 py-0.5 rounded-md outline-none cursor-text shadow-sm select-text ${
+                            !isExporting ? 'focus:ring-2 focus:ring-yellow-400 hover:ring-1 hover:ring-yellow-300' : ''
+                          }`}
                           title="Click to edit topic tag"
                         >
                           {topicTag}
@@ -718,7 +723,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
 
                     {/* Direct Main Announcement Message (Click to Edit Directly on Canvas) */}
                     <p
-                      contentEditable={!!onChange}
+                      contentEditable={!isExporting && !!onChange}
                       spellCheck={false}
                       suppressContentEditableWarning
                       data-placeholder="ENTER NOTICE MESSAGE HERE..."
@@ -748,7 +753,9 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                         whiteSpace: 'pre-wrap',
                         wordBreak: 'break-word'
                       }}
-                      className="pw-announcement-text text-white uppercase outline-none focus:ring-2 focus:ring-[#ffd200] focus:bg-black/25 rounded px-2 py-1 cursor-text transition-all duration-150 drop-shadow-md hover:ring-1 hover:ring-white/40 empty:before:content-[attr(data-placeholder)] empty:before:opacity-40 select-text whitespace-pre-wrap break-words"
+                      className={`pw-announcement-text text-white uppercase outline-none rounded px-2 py-1 cursor-text transition-all duration-150 drop-shadow-md empty:before:content-[attr(data-placeholder)] empty:before:opacity-40 select-text whitespace-pre-wrap break-words ${
+                        !isExporting ? 'focus:ring-2 focus:ring-[#ffd200] focus:bg-black/25 hover:ring-1 hover:ring-white/40' : ''
+                      }`}
                       title="Click to edit announcement text directly on canvas"
                     >
                       {annText}
@@ -771,7 +778,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                           className="relative group cursor-pointer hover:shadow-lg transition-all"
                         >
                           <span
-                            contentEditable={!!onChange}
+                            contentEditable={!isExporting && !!onChange}
                             spellCheck={false}
                             suppressContentEditableWarning
                             onClick={(e) => {
@@ -800,7 +807,9 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                               lineHeight: '1',
                               fontFamily: config.fontFamily || "'Montserrat', 'Plus Jakarta Sans', sans-serif"
                             }}
-                            className="pw-announcement-badge-text outline-none focus:ring-2 focus:ring-emerald-700 cursor-text text-center font-bold px-2 py-0.5 rounded hover:ring-1 hover:ring-black/30 select-text"
+                            className={`pw-announcement-badge-text outline-none cursor-text text-center font-bold px-2 py-0.5 rounded select-text ${
+                              !isExporting ? 'focus:ring-2 focus:ring-emerald-700 hover:ring-1 hover:ring-black/30' : ''
+                            }`}
                             title="Click to edit pill badge text directly on canvas"
                           >
                             {badgeText}
@@ -852,7 +861,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                 }}
               >
                 <h1
-                  contentEditable={!!onChange}
+                  contentEditable={!isExporting && !!onChange}
                   spellCheck={false}
                   suppressContentEditableWarning
                   data-placeholder="ENTER BATCH NAME"
@@ -865,7 +874,9 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                     }
                     setEditingElement(null);
                   }}
-                  className="uppercase tracking-wider drop-shadow-md outline-none focus:ring-2 focus:ring-[#8b3dff] focus:bg-white/10 hover:ring-1 hover:ring-white/50 rounded px-2 cursor-text transition-all text-center pw-header-text empty:before:content-[attr(data-placeholder)] empty:before:opacity-35 empty:before:font-extrabold"
+                  className={`uppercase tracking-wider drop-shadow-md outline-none rounded px-2 cursor-text transition-all text-center pw-header-text empty:before:content-[attr(data-placeholder)] empty:before:opacity-35 empty:before:font-extrabold ${
+                    !isExporting ? 'focus:ring-2 focus:ring-[#8b3dff] focus:bg-white/10 hover:ring-1 hover:ring-white/50' : ''
+                  }`}
                   title="Click to edit batch header directly on canvas"
                   style={{
                     fontFamily: config.fontFamily || "'Montserrat', sans-serif",
@@ -908,7 +919,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                 }}
               >
                 <div
-                  contentEditable={!!onChange}
+                  contentEditable={!isExporting && !!onChange}
                   spellCheck={false}
                   suppressContentEditableWarning
                   data-placeholder="ENTER TITLE / SCHEDULE DETAILS"
@@ -921,7 +932,9 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                     }
                     setEditingElement(null);
                   }}
-                  className="tracking-wider drop-shadow-md outline-none focus:ring-2 focus:ring-[#8b3dff] focus:bg-white/10 rounded px-2 cursor-text transition-all text-center uppercase pw-subheader-text empty:before:content-[attr(data-placeholder)] empty:before:opacity-35 empty:before:font-bold hover:ring-1 hover:ring-white/50"
+                  className={`tracking-wider drop-shadow-md outline-none rounded px-2 cursor-text transition-all text-center uppercase pw-subheader-text empty:before:content-[attr(data-placeholder)] empty:before:opacity-35 empty:before:font-bold ${
+                    !isExporting ? 'focus:ring-2 focus:ring-[#8b3dff] focus:bg-white/10 hover:ring-1 hover:ring-white/50' : ''
+                  }`}
                   title="Click to edit subtitle directly on canvas"
                   style={{
                     fontFamily: config.fontFamily || "'Montserrat', sans-serif",
@@ -1080,7 +1093,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
 
                               const cellKey = `${rIdx}-${cIdx}`;
                               const cellStyle = config.cellStyles?.[cellKey];
-                              const isCellSelected = selectedCell?.rIdx === rIdx && selectedCell?.cIdx === cIdx;
+                              const isCellSelected = !isExporting && selectedCell?.rIdx === rIdx && selectedCell?.cIdx === cIdx;
 
                               const finalCellFontSize = cellStyle?.fontSize !== undefined
                                 ? `${cellStyle.fontSize * (config.globalFontScale || 1.0)}px`
@@ -1126,7 +1139,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                                 >
                                   {/* Direct Canvas Editable Cell */}
                                   <div
-                                    contentEditable={!!onChange}
+                                    contentEditable={!isExporting && !!onChange}
                                     spellCheck={false}
                                     suppressContentEditableWarning
                                     data-placeholder={placeholderText}
@@ -1166,12 +1179,14 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
                                       color: finalCellColor,
                                       textAlign: finalCellAlign
                                     }}
-                                    className={`pw-cell-text whitespace-pre-line outline-none rounded cursor-text transition-all px-2.5 py-1 w-full block empty:before:content-[attr(data-placeholder)] empty:before:opacity-35 empty:before:italic empty:before:font-normal empty:before:text-sm empty:before:pointer-events-none hover:ring-1 ${
-                                      isCellSelected
+                                    className={`pw-cell-text whitespace-pre-line outline-none rounded cursor-text transition-all px-2.5 py-1 w-full block empty:before:content-[attr(data-placeholder)] empty:before:opacity-35 empty:before:italic empty:before:font-normal empty:before:text-sm empty:before:pointer-events-none ${
+                                      isExporting
+                                        ? ''
+                                        : isCellSelected
                                         ? 'ring-2 ring-[#8b3dff] bg-purple-50/80 shadow-xs'
                                         : isMaroon
-                                        ? 'hover:ring-white/30 focus:ring-2 focus:ring-[#8b3dff] focus:bg-white/10'
-                                        : 'hover:ring-[#8b3dff]/30 focus:ring-2 focus:ring-[#8b3dff] focus:bg-purple-50/80'
+                                        ? 'hover:ring-1 hover:ring-white/30 focus:ring-2 focus:ring-[#8b3dff] focus:bg-white/10'
+                                        : 'hover:ring-1 hover:ring-[#8b3dff]/30 focus:ring-2 focus:ring-[#8b3dff] focus:bg-purple-50/80'
                                     }`}
                                     title="Click to edit text and customize this specific cell font, size & color in top toolbar"
                                   >
