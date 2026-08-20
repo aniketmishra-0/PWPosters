@@ -582,37 +582,46 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
         }}
         className="flex-1 w-full overflow-hidden flex items-center justify-center px-2 sm:px-4 lg:px-6 pt-3 sm:pt-4 pb-28 rounded-2xl min-h-[320px] sm:min-h-[420px]"
       >
-        {previewMode === 'pdf' ? (
-          <div
-            style={{
-              width: `${794 * scale}px`,
-              height: `${1123 * scale}px`,
-              transition: 'width 0.15s ease-out, height 0.15s ease-out'
-            }}
-            className="relative shrink-0 flex items-center justify-center"
-          >
-            <div className="absolute top-0 left-0">
-              <SyllabusPdfDocument
-                config={config}
-                pdfDocRef={pdfDocRef}
-                onChange={onChange}
-                scale={scale}
-                selectedCell={selectedCell}
-                onSelectCell={setSelectedCell}
-                onSelectActiveElement={setActiveCanvasElement}
-                isExporting={isExporting}
-              />
-            </div>
-          </div>
-        ) : (
-          <div
-            style={{
-              width: `${posterWidth * scale}px`,
-              height: `${posterHeight * scale}px`,
-              transition: 'width 0.15s ease-out, height 0.15s ease-out'
-            }}
-            className="relative shrink-0 flex items-center justify-center"
-          >
+        <AnimatePresence mode="wait" initial={false}>
+          {previewMode === 'pdf' ? (
+            <motion.div
+              key="pdf-view"
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -12 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                width: `${794 * scale}px`,
+                height: `${1123 * scale}px`
+              }}
+              className="relative shrink-0 flex items-center justify-center"
+            >
+              <div className="absolute top-0 left-0">
+                <SyllabusPdfDocument
+                  config={config}
+                  pdfDocRef={pdfDocRef}
+                  onChange={onChange}
+                  scale={scale}
+                  selectedCell={selectedCell}
+                  onSelectCell={setSelectedCell}
+                  onSelectActiveElement={setActiveCanvasElement}
+                  isExporting={isExporting}
+                />
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="poster-view"
+              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -12 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                width: `${posterWidth * scale}px`,
+                height: `${posterHeight * scale}px`
+              }}
+              className="relative shrink-0 flex items-center justify-center"
+            >
             {previewMode === 'poster' && (
               <div
                 style={{
@@ -1206,9 +1215,10 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
           </div>
         )}
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
+    </div>
 
       {/* Floating Modern Glassmorphism Control Dock (Desktop / Tablet - Centered Directly on Canvas) */}
       <div
