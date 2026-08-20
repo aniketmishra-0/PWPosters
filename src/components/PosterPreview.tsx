@@ -832,7 +832,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
 
             {/* TOP HEADER SECTION */}
             <div
-              className="pw-poster-header relative z-10 flex flex-col items-center justify-center text-center w-full pt-3 pb-1 mb-2 shrink-0"
+              className="pw-poster-header relative z-10 flex flex-col items-center justify-center text-center w-full min-h-[110px] pt-3 pb-1 mb-2 shrink-0"
             >
               {/* Single Logo Top Left - Official PW Monogram Badge */}
               {config.showLogo && (

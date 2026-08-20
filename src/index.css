@@ -41,8 +41,8 @@
 }
 
 [data-exporting="true"] [data-placeholder]::before {
-  content: "" !important;
-  display: none !important;
+  color: transparent !important;
+  opacity: 0 !important;
 }
 
 
