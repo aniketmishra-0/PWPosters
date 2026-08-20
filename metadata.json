@@ -1,0 +1,8 @@
+{
+  "name": "Remix PW Posters",
+  "description": "Generate custom PW time tables, syllabus posters, and notices with real-time live preview and PDF/PNG download.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
