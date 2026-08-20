@@ -580,7 +580,7 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
             }
           }
         }}
-        className="flex-1 w-full overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6 lg:pb-8 pt-16 sm:pt-20 rounded-2xl min-h-[320px] sm:min-h-[420px]"
+        className="flex-1 w-full overflow-hidden flex items-center justify-center px-2 sm:px-4 lg:px-6 pt-3 sm:pt-4 pb-28 rounded-2xl min-h-[320px] sm:min-h-[420px]"
       >
         {previewMode === 'pdf' ? (
           <div
@@ -1216,14 +1216,14 @@ export const PosterPreview: React.FC<PosterPreviewProps> = ({
           left: isSidebarCollapsed ? 'calc(50% + 36px)' : 'calc(50% + 211px)',
           transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
         }}
-        className="fixed bottom-6 -translate-x-1/2 z-30 hidden md:flex items-center justify-center pointer-events-auto"
+        className="fixed bottom-4 -translate-x-1/2 z-30 hidden md:flex items-center justify-center pointer-events-auto"
       >
-        {/* Main Dock Container */}
-        <div className="flex items-center bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_12px_36px_rgba(0,0,0,0.14)] rounded-2xl p-1.5 gap-1.5 transition-all">
+        {/* Main Dock Container - Frosted Semi-Transparent Glass */}
+        <div className="flex items-center bg-white/80 hover:bg-white/95 backdrop-blur-xl border border-white/80 shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-2xl p-1.5 gap-1.5 transition-all duration-200">
           {/* Segmented View Mode Toggle (Exclusive to Syllabus) */}
           {config.type === 'syllabus' && (
             <>
-              <div className="flex items-center bg-slate-100/90 p-1 rounded-xl gap-1">
+              <div className="flex items-center bg-slate-100/75 backdrop-blur-sm p-1 rounded-xl gap-1">
                 <button
                   type="button"
                   onClick={() => setPreviewMode('poster')}

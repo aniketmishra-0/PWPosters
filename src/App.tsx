@@ -467,7 +467,7 @@ export default function App() {
 
         {/* Right Column: Live Poster / PDF Document Preview (Expands to Full Width when Sidebar is Collapsed) */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden bg-[#f3f4f6] relative flex flex-col no-scrollbar">
-          <div className="w-full min-h-full p-2 sm:p-4 lg:px-8 lg:pt-4 lg:pb-32 pb-24 flex flex-col items-center justify-start">
+          <div className="w-full min-h-full px-2 sm:px-4 lg:px-6 pt-1 pb-32 flex flex-col items-center justify-start">
             <div className="w-full max-w-[1440px] mx-auto mt-1 mb-auto relative">
               <PosterPreview
                 config={config}
